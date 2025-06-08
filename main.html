@@ -1,1 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link href="styles.css" rel="stylesheet" />
+</head>
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh; background: #f8f8f8; flex-direction: column; font-family: 'Red Hat Display', sans-serif;">
+  <h1>👋 Welcome to Slora!</h1>
+  <p>You’re logged in, you legend 😎</p>
+  <button onclick="handleLogout()" style="margin-top: 20px; padding: 10px 20px; background: #262626; color: white; border: none; border-radius: 8px;">Logout</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script>
+    async function handleLogout() {
+      await supabase.auth.signOut();
+      alert("You've been logged out 👋");
+      window.location.href = "auth.html";
+    }
+
+    // Optional: Protect the page
+    async function checkSession() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        alert("Oops! You’re not logged in.");
+        window.location.href = "auth.html";
+      }
+    }
+
+    checkSession();
+  </script>
+</body>
+</html>
 
