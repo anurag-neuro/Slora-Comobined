@@ -25,6 +25,13 @@
   <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js"></script>
-  <script src="auth.js"></script>
+  <script type="module">
+  import { handleEmailLogin, loginWithProvider } from './auth.js';
+
+  // Attach functions to buttons
+  window.handleEmailLogin = handleEmailLogin;
+  window.loginWithProvider = loginWithProvider;
+</script>
+
 </body>
 </html>
