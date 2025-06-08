@@ -20,7 +20,7 @@ export async function handleEmailLogin() {
     alert("Login failed: " + error.message);
   } else {
     alert("Login successful! Redirecting...");
-    window.location.href = "dashboard.html"; // Or wherever your main page is
+    window.location.href = "main.html"; // Or wherever your main page is
   }
 }
 
