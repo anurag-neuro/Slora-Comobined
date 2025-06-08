@@ -11,23 +11,30 @@
   <div class="container">
     <h2 id="form-title">Login to Your Account</h2>
 
-    <label for="email">Email</label>
-    <input type="email" id="email" placeholder="Enter your email" />
+    <form id="authForm">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email" />
 
-    <label for="password">Password</label>
-    <input type="password" id="password" placeholder="Enter your password" />
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter your password" />
 
-    <button class="auth-btn" onclick="handleAuth()">Login</button>
-
+      <button class="auth-btn" type="submit">Login</button> </form>
     <div class="toggle-link" onclick="toggleMode()">Don't have an account? Sign up</div>
   </div>
 
   <script type="module">
-    // Import the functions from auth.js — auth.js imports supabase-config.js internally
     import { handleAuth, toggleMode } from './auth.js';
 
-    // Expose functions to window for inline onclick handlers to work
-    window.handleAuth = handleAuth;
+    // Get the form and prevent default submission
+    const authForm = document.getElementById('authForm');
+    if (authForm) {
+      authForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent the default form submission
+        handleAuth(); // Call your JavaScript function
+      });
+    }
+
+    // Expose toggleMode to window for inline onclick handlers to work
     window.toggleMode = toggleMode;
   </script>
 </body>
