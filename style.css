@@ -1,72 +1,83 @@
-/* =========================
-   File: styles.css
-   For: Slora Auth UI Design
-   ========================= */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Red Hat Display', sans-serif;
-}
+/* styles.css */
 
 body {
-  background-color: #FCF7FA; /* Soft pink background */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+margin: 0;
+padding: 0;
+font-family: 'Red Hat Display', sans-serif;
+background-color: #f7f7fa;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
 }
 
 .container {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  max-width: 400px;
+background: #ffffff;
+padding: 40px 30px;
+border-radius: 16px;
+box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+width: 100%;
+max-width: 360px;
+box-sizing: border-box;
 }
 
 h2 {
-  color: #262626;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-align: center;
+text-align: center;
+margin-bottom: 24px;
+font-size: 24px;
+font-weight: 600;
+color: #222;
 }
 
 label {
-  display: block;
-  color: #262626;
-  font-weight: 500;
-  margin: 1rem 0 0.25rem;
+font-size: 14px;
+color: #444;
+margin-bottom: 6px;
+display: block;
 }
 
-input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  color: #262626;
+input[type="email"],
+input[type="password"] {
+width: 100%;
+padding: 12px;
+border: 1px solid #ccc;
+border-radius: 10px;
+font-size: 14px;
+margin-bottom: 18px;
+box-sizing: border-box;
 }
 
-button.auth-btn {
-  margin-top: 1.5rem;
-  width: 100%;
-  background-color: #262626;
-  color: white;
-  padding: 0.75rem;
-  font-weight: 500;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+input:focus {
+border-color: #6c63ff;
+outline: none;
+}
+
+.auth-btn {
+width: 100%;
+padding: 12px;
+font-size: 16px;
+background-color: #6c63ff;
+color: white;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.auth-btn:hover {
+background-color: #594cf3;
 }
 
 .toggle-link {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #969696;
-  cursor: pointer;
+margin-top: 18px;
+text-align: center;
+font-size: 14px;
+color: #6c63ff;
+cursor: pointer;
+text-decoration: underline;
+transition: color 0.3s;
 }
 
+.toggle-link:hover {
+color: #4b3ee7;
+}
