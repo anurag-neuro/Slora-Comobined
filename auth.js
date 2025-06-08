@@ -1,5 +1,10 @@
 // auth.js
-import { supabase } from './supabase-config.js';
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+const SUPABASE_URL = 'https://mukctnzjzeiszdexknyf.supabase.co';
+const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY'; // Replace with your actual anon key
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let isLogin = true;
 
