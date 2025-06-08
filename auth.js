@@ -1,4 +1,4 @@
-/// auth.js
+// auth.js
 import { supabase } from './supabase-config.js';
 
 let isLogin = true;
