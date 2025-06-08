@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+
+  <!-- Google Font: Red Hat Display -->
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* === Global Styles === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Red Hat Display', sans-serif;
+    }
+
+    body {
+      background-color: #FCF7FA; /* Soft pink background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      color: #262626; /* Main heading text color */
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      color: #262626;
+      font-weight: 500;
+      margin: 1rem 0 0.25rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #262626;
+    }
+
+    button.login-btn {
+      margin-top: 1.5rem;
+      width: 100%;
+      background-color: #262626; /* Dark button */
+      color: white;
+      padding: 0.75rem;
+      font-weight: 500;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .divider {
+      text-align: center;
+      color: #969696;
+      margin: 1.5rem 0 1rem;
+      font-size: 0.9rem;
+      position: relative;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .social-icons img {
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Page Title -->
+    <h2>Login to Your Account</h2>
+
+    <!-- Email Field -->
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Enter your email" />
+
+    <!-- Password Field -->
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter your password" />
+
+    <!-- Login Button -->
+    <button class="login-btn" onclick="handleEmailLogin()">Login</button>
+
+    <!-- Divider Text -->
+    <div class="divider">Or sign in with</div>
+
+    <!-- Social Icons -->
+    <div class="social-icons">
+      <!-- Use your own icon URLs or CDN here -->
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" onclick="loginWithProvider('google')" />
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Facebook" onclick="loginWithProvider('facebook')" />
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" onclick="loginWithProvider('github')" />
+    </div>
+  </div>
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    // === Supabase Setup ===
+    const supabase = supabase.createClient(
+      'https://mukctnzjzeiszdexknyf.supabase.co', // Replace with your Supabase URL
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11a2N0bnpqemVpc3pkZXhrbnlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkzMDU5NDMsImV4cCI6MjA2NDg4MTk0M30.T-uGYkebc7yBdoKLCDo3L-R1iRbSf9gkqBasV7lEKWU' // Replace with your Supabase anon key
+    );
+
+    // === Handle Classic Email/Password Login ===
+    async function handleEmailLogin() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        alert("Login failed: " + error.message);
+      } else {
+        alert("Login successful! Redirecting...");
+        window.location.href = "/dashboard.html";
+      }
+    }
+
+    // === Handle Social Login Popup (Google, GitHub, Facebook) ===
+    async function loginWithProvider(provider) {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider,
+    options: {
+      skipBrowserRedirect: true
+    }
+  });
+
+  if (error) {
+    alert("OAuth failed: " + error.message);
+    return;
+  }
+
+  // Open the returned URL in a popup window
+  const popup = window.open(data.url, '_blank', 'width=500,height=600');
+
+  // Now you need to listen for changes on supabase.auth to detect login
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_IN') {
+      popup.close();
+      alert("Logged in popup style!");
+      window.location.href = "/dashboard.html";
+    }
+  });
+}
+
+  </script>
+</body>
+
+</html>
